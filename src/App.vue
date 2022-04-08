@@ -2,6 +2,7 @@
   <v-app>
     <v-main>
       <HelloWorld/>
+      <p>ola</p>
     </v-main>
   </v-app>
 </template>

@@ -11,12 +11,16 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 async function createWindow() {
+
+  const { title, version } = await require('../package.json')
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    title: `${title} :: ${version}`,
     webPreferences: {
-      
+
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
@@ -27,13 +31,23 @@ async function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    // linha comentada
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
+
   } else {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+
 }
+
+// chama essa funcao quando acontecer um metodo de ciclo de vida
+app.on('browser-window-created', () => {
+  const { title, version } = require('../package.json')
+  console.log(`${title}:${version} - Finish load`)
+})
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
