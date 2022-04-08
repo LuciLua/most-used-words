@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Vue from "vue"
+import vuetify from './plugins/vuetify'
+import { loadFonts } from './plugins/webfontloader'
 
-createApp(App).mount("#app");
+loadFonts()
 
-// I don't use it by default.
-new Vue({
-    render: h => h(App)
-}).$mount("#app");
+createApp(App)
+  .use(vuetify)
+  .mount('#app')
