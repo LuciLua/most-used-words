@@ -1,24 +1,33 @@
 <template>
   <v-app>
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>Most Used Words</v-toolbar-title>
+    </v-app-bar>
     <v-main>
-      <HelloWorld/>
-      <p>ola</p>
+      <v-container fluid>
+        <HomeApp />
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HomeApp from "./components/HomeApp.vue";
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    HelloWorld,
+    HomeApp,
   },
 
-  data: () => ({
-    //
-  }),
-}
+  data: function () {
+    return {
+      groupedWords: [
+        { name: "i", amount: 1234 },
+        { name: "you", amount: 900 },
+        { name: "he", amount: 850 },
+      ],
+    };
+  },
+};
 </script>
