@@ -4,14 +4,14 @@
       <v-file-input
         label="Selecione as Legendas"
         prepend-icon="mdi-message-text"
+        v-model="files"
         multiple
         chips
-        v-model="files"
       />
       <v-btn
         class="btn"
         append-icon="mdi-send"
-        style="box-shadow: none; font-size: 1.2rem; color: #707070;"
+        style="box-shadow: none; font-size: 1.2rem; color: #707070"
         @click="processSubtitles"
       ></v-btn>
     </v-form>
@@ -28,6 +28,8 @@
 
 <script>
 import PillComp from "./PillComp.vue";
+import { ipcRenderer } from "electron";
+
 export default {
   components: {
     PillComp,
@@ -35,16 +37,16 @@ export default {
   data: function () {
     return {
       files: [],
-      groupedWords: [
-        { name: "i", amount: 1234 },
-        { name: "you", amount: 900 },
-        { name: "he", amount: 850 },
-      ],
+      groupedWords: [],
     };
   },
   methods: {
     processSubtitles() {
-      console.log(this.files);
+      const paths = this.files.map(f => f.path)
+      ipcRenderer.send("process-subtitles", paths);
+      ipcRenderer.on("process-subtitles", (event, resp) => {
+        this.groupedWords = resp
+      });
     },
   },
 };
