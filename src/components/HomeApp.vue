@@ -1,5 +1,20 @@
 <template>
   <v-container fluid>
+    <v-form class="form">
+      <v-file-input
+        label="Selecione as Legendas"
+        prepend-icon="mdi-message-text"
+        multiple
+        chips
+        v-model="files"
+      />
+      <v-btn
+        class="btn"
+        append-icon="mdi-send"
+        style="box-shadow: none; font-size: 1.2rem; color: #707070;"
+        @click="processSubtitles"
+      ></v-btn>
+    </v-form>
     <div class="pills">
       <PillComp
         v-for="word in groupedWords"
@@ -19,6 +34,7 @@ export default {
   },
   data: function () {
     return {
+      files: [],
       groupedWords: [
         { name: "i", amount: 1234 },
         { name: "you", amount: 900 },
@@ -26,14 +42,29 @@ export default {
       ],
     };
   },
+  methods: {
+    processSubtitles() {
+      console.log(this.files);
+    },
+  },
 };
 </script>
 
 <style>
-  .pills{
-    display: flex;
-    flex-wrap: wrap;
+.pills {
+  display: flex;
+  flex-wrap: wrap;
 
-    justify-content: space-between;
-  }
+  justify-content: space-between;
+}
+
+.form {
+  display: flex;
+}
+
+.form .btn {
+  margin-top: 0px;
+  margin-left: 10px;
+  height: 55px;
+}
 </style>
