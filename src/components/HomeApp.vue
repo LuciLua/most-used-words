@@ -30,4 +30,10 @@ export default {
 </script>
 
 <style>
+  .pills{
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+  }
 </style>
